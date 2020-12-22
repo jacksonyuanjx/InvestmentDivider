@@ -4,6 +4,7 @@
 
 const { program } = require("commander");
 const inquirer = require("inquirer");
+const { getAssetDistribution } = require("../lib/algo");
 const questions = require("./questions");
 const investmentDividerVersion = require("../package.json").version;
 // console.log(investmentDividerVersion);
@@ -20,9 +21,15 @@ program
 const getTickers = async () => {
     const tickers = {};
     const _recurse = async () => {
-        const answers = await inquirer.prompt(questions[1]);
-        if (answers.ticker_symbol !== "q") {
-            tickers[answers.ticker_symbol] = 0;
+        const { ticker_symbol: tickerAns } = await inquirer.prompt(questions.tickerSymbolQues);
+        if (tickerAns !== "q") {
+            // TODO: check for duplicates
+            const { ticker_price: price } = await inquirer.prompt({
+                type: "number",
+                name: "ticker_price",
+                message: `Provide the current price of ${tickerAns}: `,
+            });
+            tickers[tickerAns] = price;
             await _recurse(tickers);
         }
     };
@@ -32,13 +39,16 @@ const getTickers = async () => {
 };
 
 const prompt = async () => {
-    const { total_capital_to_divide: totalCapital } = await inquirer.prompt([questions[0]]);
-    console.log(totalCapital);
+    const { total_capital_to_divide: totalCapital } = await inquirer.prompt(questions.totalCapitalQues);
+    // console.log(totalCapital);
     const tickers = await getTickers();
-    console.log(tickers);
-    
+    // console.log(tickers);
+    // TODO: output log message saying computing results?
+    const result = getAssetDistribution(totalCapital, tickers);
 };
 
 prompt();
 
 // program.parse(process.argv);
+
+// TODO: most of this logic should be in /lib
