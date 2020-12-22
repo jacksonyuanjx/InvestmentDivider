@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "bin": {
     "divide-investments": "bin/investment-divider.js"
-  }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/jacksonyuanjx/InvestmentDivider/issues"
   },
-  "homepage": "https://github.com/jacksonyuanjx/InvestmentDivider#readme"
+  "homepage": "https://github.com/jacksonyuanjx/InvestmentDivider#readme",
+  "dependencies": {
+    "commander": "^6.2.1",
+    "inquirer": "^7.3.3"
+  }
 }
