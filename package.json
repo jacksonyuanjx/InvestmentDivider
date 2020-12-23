@@ -1,6 +1,6 @@
 {
   "name": "@jacksonyuanjx/investment-divider",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A CLI to determine how many shares of each asset to purchase when given a limited amount of capital.",
   "main": "src/index.js",
   "bin": {
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/jacksonyuanjx/InvestmentDivider#readme",
   "dependencies": {
+    "boxen": "^4.2.0",
     "commander": "^6.2.1",
     "inquirer": "^7.3.3"
   }

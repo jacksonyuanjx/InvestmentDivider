@@ -4,6 +4,7 @@
 
 const { program } = require("commander");
 const inquirer = require("inquirer");
+const boxen = require("boxen");
 const { getAssetDistribution } = require("../lib/algo");
 const questions = require("./questions");
 const investmentDividerVersion = require("../package.json").version;
@@ -30,21 +31,27 @@ const getTickers = async () => {
                 message: `Provide the current price of ${tickerAns}: `,
             });
             tickers[tickerAns] = price;
-            await _recurse(tickers);
+            await _recurse();
         }
     };
 
-    await _recurse(tickers);
+    await _recurse();
     return tickers;
 };
 
+const getTotalCapital = async (question) => {
+    const { total_capital_to_divide: totalCapital } = await inquirer.prompt(question);
+    return (isNaN(totalCapital)) ? getTotalCapital(questions.totalCapitalRetry) : totalCapital;
+};
+
 const prompt = async () => {
-    const { total_capital_to_divide: totalCapital } = await inquirer.prompt(questions.totalCapitalQues);
-    // console.log(totalCapital);
+    const totalCapital = await getTotalCapital(questions.totalCapitalQues);
+    console.log(totalCapital);
     const tickers = await getTickers();
     // console.log(tickers);
     // TODO: output log message saying computing results?
-    const result = getAssetDistribution(totalCapital, tickers);
+    const { result, sum } = getAssetDistribution(totalCapital, tickers);
+    console.log(result, sum);
 };
 
 prompt();
