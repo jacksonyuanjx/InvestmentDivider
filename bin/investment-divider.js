@@ -4,7 +4,6 @@
 
 const { program } = require("commander");
 const inquirer = require("inquirer");
-const boxen = require("boxen");
 const { performance } = require("perf_hooks");
 const Table = require("cli-table3");
 const { getAssetDistribution } = require("../lib/algo");
@@ -27,12 +26,15 @@ const getTickers = async () => {
         const { ticker_symbol: tickerAns } = await inquirer.prompt(questions.tickerSymbolQues);
         if (tickerAns !== "q") {
             // TODO: check for duplicates
-            const { ticker_price: price } = await inquirer.prompt({
-                type: "number",
-                name: "ticker_price",
-                message: `What's the current price of ${tickerAns}: `,
-            });
-            tickers[tickerAns] = price;
+            let tickerPriceAns = { ticker_price: NaN };
+            while (isNaN(tickerPriceAns.ticker_price)) {
+                tickerPriceAns = await inquirer.prompt({
+                    type: "number",
+                    name: "ticker_price",
+                    message: `What's the current price of ${tickerAns}: `,
+                });
+            }
+            tickers[tickerAns] = tickerPriceAns.ticker_price;
             await _recurse();
         }
     };
@@ -63,13 +65,13 @@ const buildResponse = (result) => {
 
 const prompt = async () => {
     const totalCapital = await getTotalCapital(questions.totalCapitalQues);
-    console.log(totalCapital);
     const tickers = await getTickers();
-    if (!Object.keys(tickers).length) return console.log(boxen("You must input at least one ticker", answerStyling));
+    if (!Object.keys(tickers).length) return console.log("You must input at least one ticker");
     // console.log(tickers);
     // TODO: output log message saying computing results?
     const startTime = performance.now();
     const { result, sum } = getAssetDistribution(totalCapital, tickers);
+
     console.log(`Operation took: ${performance.now() - startTime}ms`);
     console.log(buildResponse(result));
     console.log(`The total amount invested is: $${sum}`);
