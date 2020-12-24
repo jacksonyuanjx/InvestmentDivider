@@ -21,6 +21,12 @@
         "quotes": [2, "double", { "avoidEscape": true }],
         "no-console": "off",
         "max-len": "off",
-        "linebreak-style": "off"
+        "linebreak-style": "off",
+        "no-underscore-dangle": "off",
+        "no-await-in-loop": "off",
+        "no-plusplus": "off",
+        "no-return-assign": "off",
+        "no-loop-func": "off",
+        "no-param-reassign": "off"
     }
 }
