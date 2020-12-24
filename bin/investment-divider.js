@@ -30,7 +30,6 @@ const getTickers = async () => {
         const { ticker_symbol: tickerAns } = tickerSymAns;
 
         if (tickerAns !== "q") {
-            // TODO: check for duplicates
             let tickerPriceAns = { ticker_price: NaN };
             while (isNaN(tickerPriceAns.ticker_price)) {
                 tickerPriceAns = await inquirer.prompt({
@@ -51,12 +50,6 @@ const getTickers = async () => {
 const getTotalCapital = async (question) => {
     const { total_capital_to_divide: totalCapital } = await inquirer.prompt(question);
     return (isNaN(totalCapital)) ? getTotalCapital(questions.totalCapitalRetry) : totalCapital;
-};
-
-const answerStyling = {
-    padding: 1,
-    borderStyle: "round",
-    borderColor: "blue",
 };
 
 const buildResponse = (result) => {
@@ -85,5 +78,3 @@ const prompt = async () => {
 prompt();
 
 // program.parse(process.argv);
-
-// TODO: most of this logic should be in /lib
