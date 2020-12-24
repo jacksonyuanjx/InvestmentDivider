@@ -24,6 +24,12 @@ const getTickers = async () => {
     const tickers = {};
     const _recurse = async () => {
         const { ticker_symbol: tickerAns } = await inquirer.prompt(questions.tickerSymbolQues);
+        // let tickerAns = { ticker_symbol: null };
+        // let tickerSymbolQues = questions.tickerSymbolQues;
+        // while (!tickerAns || tickerAns.ticker_symbol in tickers) {
+        //     tickerAns = await inquirer.prompt(tickerSymbolQues);
+        //     tickerSymbolQues = (tickerAns.ticker_symbol in tickers) ? questions.tickerSymbolQues : questions.tickerSymbolQuesDuplicate;
+        // }
         if (tickerAns !== "q") {
             // TODO: check for duplicates
             let tickerPriceAns = { ticker_price: NaN };
@@ -74,7 +80,7 @@ const prompt = async () => {
 
     console.log(`Operation took: ${performance.now() - startTime}ms`);
     console.log(buildResponse(result));
-    console.log(`The total amount invested is: $${sum}`);
+    console.log(`The total amount invested is $${sum} out of a total of $${totalCapital} available.`);
 };
 
 prompt();

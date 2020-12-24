@@ -14,6 +14,11 @@ const questions = {
         name: "ticker_symbol",
         message: "Provide the ticker of one of the investments (or type 'q' if you're done entering): ",
     },
+    tickerSymbolQuesDuplicate: {
+        type: "input",
+        name: "ticker_symbol",
+        message: "Ticker already added. Provide a different one (or type 'q' if you're done entering): ",
+    },
 };
 
 module.exports = questions;
