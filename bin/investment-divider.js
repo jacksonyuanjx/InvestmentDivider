@@ -6,6 +6,7 @@ const { program } = require("commander");
 const inquirer = require("inquirer");
 const { performance } = require("perf_hooks");
 const Table = require("cli-table3");
+const kleur = require("kleur");
 const { getAssetDistribution } = require("../lib/algo");
 const questions = require("./questions");
 const investmentDividerVersion = require("../package.json").version;
@@ -23,13 +24,11 @@ program
 const getTickers = async () => {
     const tickers = {};
     const _recurse = async () => {
-        const { ticker_symbol: tickerAns } = await inquirer.prompt(questions.tickerSymbolQues);
-        // let tickerAns = { ticker_symbol: null };
-        // let tickerSymbolQues = questions.tickerSymbolQues;
-        // while (!tickerAns || tickerAns.ticker_symbol in tickers) {
-        //     tickerAns = await inquirer.prompt(tickerSymbolQues);
-        //     tickerSymbolQues = (tickerAns.ticker_symbol in tickers) ? questions.tickerSymbolQues : questions.tickerSymbolQuesDuplicate;
-        // }
+        let tickerSymAns = await inquirer.prompt(questions.tickerSymbolQues);
+        while (!tickerSymAns.ticker_symbol.trim()) tickerSymAns = await inquirer.prompt(questions.tickerSymbolQuesEmptyStr);
+        while (tickerSymAns.ticker_symbol in tickers) tickerSymAns = await inquirer.prompt(questions.tickerSymbolQuesDuplicate);
+        const { ticker_symbol: tickerAns } = tickerSymAns;
+
         if (tickerAns !== "q") {
             // TODO: check for duplicates
             let tickerPriceAns = { ticker_price: NaN };

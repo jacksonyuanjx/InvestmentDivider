@@ -1,3 +1,4 @@
+const { bold, red } = require("kleur");
 const questions = {
     totalCapitalQues: {
         type: "number",
@@ -17,7 +18,12 @@ const questions = {
     tickerSymbolQuesDuplicate: {
         type: "input",
         name: "ticker_symbol",
-        message: "Ticker already added. Provide a different one (or type 'q' if you're done entering): ",
+        message: `${red("Ticker already added.")} Provide a different one (or type 'q' if you're done entering): `,
+    },
+    tickerSymbolQuesEmptyStr: {
+        type: "input",
+        name: "ticker_symbol",
+        message: `${red("Ticker cannot be empty.")} Provide the ticker of one of the investments (or type 'q' if you're done entering): `,
     },
 };
 

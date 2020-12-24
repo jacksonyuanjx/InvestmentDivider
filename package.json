@@ -23,6 +23,7 @@
   "dependencies": {
     "cli-table3": "^0.6.0",
     "commander": "^6.2.1",
-    "inquirer": "^7.3.3"
+    "inquirer": "^7.3.3",
+    "kleur": "^4.1.3"
   }
 }
