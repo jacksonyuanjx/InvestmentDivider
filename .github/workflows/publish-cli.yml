@@ -1,4 +1,4 @@
-name: Publish CLI
+name: Deployment
 
 # This workflow will only run when the "Checks Master" workflow completed successfully.
 on:
@@ -33,6 +33,7 @@ jobs:
         with:
           node-version: 14.x
           registry-url: https://npm.pkg.github.com/
+          scope: '@jacksonyuanjx'
       - run: yarn install --frozen-lockfile
       - run: yarn publish --access public
         env:
