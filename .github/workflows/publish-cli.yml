@@ -24,17 +24,18 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
 
-  publish-github-pkg:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-          registry-url: https://npm.pkg.github.com/
-          scope: '@jacksonyuanjx'
-      - run: yarn install --frozen-lockfile
-      - run: yarn publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  # Not currently publishing to GPR as it only allows scoped packages
+  # publish-github-pkg:
+  #   if: ${{ github.event.workflow_run.conclusion == 'success' }}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 14.x
+  #         registry-url: https://npm.pkg.github.com/
+  #         scope: '@jacksonyuanjx'
+  #     - run: yarn install --frozen-lockfile
+  #     - run: yarn publish --access public
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
