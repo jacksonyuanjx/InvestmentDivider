@@ -5,7 +5,7 @@ on: pull_request
 
 jobs:
   build:
-    name: Build Master
+    name: Build Pull Request
 
     runs-on: ubuntu-latest
 
