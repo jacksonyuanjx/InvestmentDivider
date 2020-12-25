@@ -1,0 +1,39 @@
+name: Publish CLI
+
+# This workflow will only run when the "Checks Master" workflow completed successfully.
+on:
+  workflow_run:
+    workflows: ["Checks Master"]
+    branches: [master]
+    types:
+      - completed
+
+jobs:
+  publish-npm:
+    if: ${{ github.event.workflow_run.conclusion == "success" }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+          registry-url: https://registry.npmjs.org/
+
+      - run: npm ci
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
+
+  publish-github-pkg:
+    if: ${{ github.event.workflow_run.conclusion == "success" }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+          registry-url: https://npm.pkg.github.com/
+      - run: npm ci
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

@@ -1,0 +1,38 @@
+name: Checks Master
+
+# Controls when the action will run. Triggers the workflow on push to `master` branch
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Build Master
+
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run Linter
+        run: yarn lint
+
+      - name: Run Unit Tests
+        run: yarn test
