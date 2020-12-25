@@ -20,7 +20,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       - run: yarn install --frozen-lockfile
-      - run: yarn publish
+      - run: yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
 
@@ -34,6 +34,6 @@ jobs:
           node-version: 14.x
           registry-url: https://npm.pkg.github.com/
       - run: yarn install --frozen-lockfile
-      - run: yarn publish
+      - run: yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
