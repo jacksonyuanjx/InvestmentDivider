@@ -1,6 +1,6 @@
 {
     "name": "investment-divider",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "description": "A CLI to determine how many shares of each asset to purchase when given a limited amount of capital.",
     "main": "src/index.js",
     "bin": {
@@ -15,9 +15,9 @@
         "type": "git",
         "url": "git+https://github.com/jacksonyuanjx/InvestmentDivider.git"
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
+    "keywords": ["cli", "investment"],
+    "author": "Jackson Yuan",
+    "license": "MIT",
     "bugs": {
         "url": "https://github.com/jacksonyuanjx/InvestmentDivider/issues"
     },
