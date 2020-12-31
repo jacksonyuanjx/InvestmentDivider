@@ -1,10 +1,7 @@
 const sinon = require("sinon");
 const rewire = require("rewire");
-const path = require("path");
 
 const lib = rewire("../../../lib");
-
-const CLI_PATH = path.join(__dirname, "../../bin/investment-divider.js");
 
 describe("The prompt() function", () => {
     const stubs = {};
