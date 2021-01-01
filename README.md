@@ -3,6 +3,7 @@
 ![Deployment](https://github.com/jacksonyuanjx/InvestmentDivider/workflows/Deployment/badge.svg)
 [![npm](https://img.shields.io/npm/v/investment-divider.svg)](https://www.npmjs.com/package/investment-divider)
 [![Downloads](https://img.shields.io/npm/dt/investment-divider.svg)](https://www.npmjs.com/package/investment-divider)
+[![codecov](https://codecov.io/gh/jacksonyuanjx/InvestmentDivider/branch/master/graph/badge.svg?token=BPTV0A9SCX)](https://codecov.io/gh/jacksonyuanjx/InvestmentDivider)
 [![Known Vulnerabilities](https://snyk.io/test/github/jacksonyuanjx/InvestmentDivider/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jacksonyuanjx/InvestmentDivider?targetFile=package.json)
 
 Investment Divider is a CLI tool built to help you evenly divide an input amount of capital into various investments while maximizing the number of investments made. By using this CLI, you can quickly decide how many shares of each investment to buy if you wish to evenly distribute your capital.
