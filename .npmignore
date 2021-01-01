@@ -2,3 +2,5 @@
 /.editorconfig
 /CONTRIBUTING.md
 /test
+.nyc_output
+/coverage
