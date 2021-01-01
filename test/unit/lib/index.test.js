@@ -34,10 +34,6 @@ describe("The prompt() function", () => {
         sinon.assert.calledOnce(stubs.getTickers);
     });
 
-    it("should return if no tickers are returned from getTickers()", () => {
-        // TODO:
-    });
-
     it("should call getAssetDistribution() once w/ total capital and tickers", () => {
         sinon.assert.calledOnce(stubs.getAssetDistribution);
         sinon.assert.calledWith(stubs.getAssetDistribution, 100, { A: 10.00 });
